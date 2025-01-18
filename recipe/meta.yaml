@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/nardini-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/nardini-{{ version }}.tar.gz
   sha256: a6d6147990aa7d630aa759066c0144b964968f3206b6539a614b8cf3c1d8566f
 
 build:
@@ -14,17 +14,17 @@ build:
     - nardini = nardini.__main__:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.5
+    - python {{ python_min }}
     - setuptools >=50.0.0
     - setuptools-scm
     - wheel
     - pip
   run:
-    - python >=3.5
+    - python >={{ python_min }}
     - biopython >=1.75
     - matplotlib-base >=3.3
     - numpy >=1.19
@@ -39,6 +39,7 @@ test:
     - nardini --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/nardini/
